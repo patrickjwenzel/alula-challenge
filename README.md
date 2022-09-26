@@ -1,4 +1,6 @@
 # alula-challenge
+For the coding challenge I performed Exercise 1 where I needed to make a request to the NASA NeoWS API to get information about asteroids expected to pass near the earth during the specified range.
+
 Languages Used:
 - Node.js
 - React.js
