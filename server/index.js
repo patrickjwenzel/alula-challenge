@@ -20,7 +20,9 @@ app.post('/getData', async (req, res) => {
         const ret = { asteroids: [] };
         const data = asts.data;
 
-        // Loop through each of the dates that get returned
+        // Loop through each of the dates that get returned.
+        // If none are in that range, { asteroids: [] } will end
+        // up being returned
         Object.keys(data.near_earth_objects).forEach((key) => {
             const date = data.near_earth_objects[key];
             date.forEach((ast) => {
