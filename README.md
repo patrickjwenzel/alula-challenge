@@ -8,10 +8,10 @@ Languages Used:
 - React.js
 - TypeScript
 ## How to Run:
-### For One Command (On Windows Git Bash):
+### For One Command (On Windows):
 `git clone https://github.com/patrickjwenzel/alula-challenge.git && cd alula-challenge && npm install && cd client && npm install && npm run start`
 
-### Step by Step (On Windows Git Bash):
+### Step by Step (On Windows):
 - Clone the repository: `git clone https://github.com/patrickjwenzel/alula-challenge.git`
 - Move into the project's directory: `cd alula-challenge`
 - Install root directory packages: `npm install`

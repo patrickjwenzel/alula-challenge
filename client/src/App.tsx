@@ -23,6 +23,8 @@ function App() {
     setKmFilter(val);
   };
 
+  const getNewDate = (date:any, time:any) => new Date(new Date(date).getTime()+(time*24*60*60*1000)).toISOString().split('T')[0]
+
   return (
     <div>
       <div>
@@ -31,6 +33,12 @@ function App() {
           setValue={changeStart}
           label='Choose a Start Date'
           max={endDate}
+          min={endDate
+            // Add 7 days to the start date since the API cannot handle date ranges > 7 days
+            // Could have used the moment package but wanted to limit the number of ones I used
+            ? getNewDate(endDate, -7)
+            : undefined
+          }
         />
       </div>
       <div>
@@ -42,7 +50,7 @@ function App() {
           max={startDate
             // Add 7 days to the start date since the API cannot handle date ranges > 7 days
             // Could have used the moment package but wanted to limit the number of ones I used
-            ? new Date(new Date(startDate).getTime()+(7*24*60*60*1000)).toISOString().split('T')[0]
+            ? getNewDate(startDate, 7)
             : undefined
           }
         />
@@ -57,17 +65,23 @@ function App() {
       <button
         type='button'
         onClick={() => {
-          if (!startDate || !endDate) {
-            alert('Must Select a Start Date and an End Date');
+          if (!startDate) {
+            alert('Must Select a Start Date');
           } else if (parseFloat(kmFilter) < 0) {
             alert('Kilometer Distance Cannot Be Negative');
           } else {
+            let endDateToUse = endDate;
+
+            if (!endDateToUse) {
+              endDateToUse = getNewDate(startDate, 7);
+              setEndDate(endDateToUse);
+            }
             axios({
               method: 'post',
               url: 'getData',
               data: {
                 dateStart: startDate,
-                dateEnd: endDate,
+                dateEnd: endDateToUse,
                 within: {
                   value: kmFilter || undefined,
                   units: 'kilometers',
